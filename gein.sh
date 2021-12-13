@@ -85,10 +85,10 @@ function print() {
 #       installation has completed.  This is set to America/New_York
 #       by default for simplicity of design.
 
-GEIN_CONFIG_URL="https://raw.githubusercontent.com/jcmdln/gein/master"
-GEIN_HOSTNAME="gein"
+GEIN_CONFIG_URL="https://raw.githubusercontent.com/td5038/gein/master"
+GEIN_HOSTNAME="zjc-gaming-gentoo"
 GEIN_LOCALE="en_US.UTF-8 UTF-8"
-GEIN_TIMEZONE="America/New_York"
+GEIN_TIMEZONE="America/Los_Angeles"
 GEIN_VIDEO_CARDS=""
 
 
@@ -108,7 +108,7 @@ GEIN_VIDEO_CARDS=""
 #     of whether a configuration file was provided. '$ make menuconfig'
 #     will be run before compiling the kernel.
 
-GEIN_KERNEL_AUTOBUILD="true"
+GEIN_KERNEL_AUTOBUILD="false"
 
 
 # TODO: I would like this section to be where a user defines their
@@ -127,9 +127,8 @@ GEIN_KERNEL_AUTOBUILD="true"
 #       The size of the swapfile to create.  This is only used if
 #       GEIN_PARTITION_SWAP is set to "/swapfile", and defaults to 4G.
 
-GEIN_PARTITION_BOOT=""
-GEIN_PARTITION_SWAP="/swapfile"
-GEIN_PARTITION_SWAPFILE_SIZE="4G"
+GEIN_PARTITION_BOOT="/dev/nvme0n1p1"
+GEIN_PARTITION_SWAP="/dev/nvme0n1p2"
 
 # This section determines the current system architecture, which later
 # is used to download the correct Stage 3 archive.  Depending on the
@@ -207,7 +206,7 @@ BOOTSTRAP() {
 
     print "gein: Downloading and extracting Stage3 tarball..."
     if [ -n "$(command -v curl)" ]; then
-        stage3_src="http://distfiles.gentoo.org/releases/$GEIN_CPU_DIR/autobuilds"
+        stage3_src="http://bouncer.gentoo.org/fetch/root/all/releases/$GEIN_CPU_DIR/autobuilds"
         stage3_rel="curl -sSf $stage3_src/latest-stage3-$GEIN_CPU_ARCH.txt"
         stage3_ver="$($stage3_rel | tail -1 | awk '{print $1}')"
         wget -q "$stage3_src/$stage3_ver"
