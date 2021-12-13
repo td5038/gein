@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # gein.sh - Gentoo installation script
 #
 ## License
